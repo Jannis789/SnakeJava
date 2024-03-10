@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=GameController
+comment1.params=e
+comment1.target=void\ keyPressed(java.awt.event.KeyEvent)
+comment2.params=
+comment2.target=java.lang.String\ getDirection()
+comment3.params=
+comment3.target=void\ clearDirection()
+comment4.params=pGameBoard
+comment4.target=void\ setGameBoard(GameBoard)
+numComments=5
