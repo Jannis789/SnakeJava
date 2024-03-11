@@ -72,7 +72,7 @@ public class Game {
                         snakeHead.move(1, 0);
                         break;
                     case "left":
-                        snakeSegments.add(new SnakeSegment(snakeHead.getX() + 30, snakeHead.getY(), 1, 30));
+                        snakeSegments.add(new SnakeSegment(snakeHead.getX() + snakeHead.getSize(), snakeHead.getY(), 1, 30));
                         snakeHead.move(-1, 0);
                         break;
                     case "down":
