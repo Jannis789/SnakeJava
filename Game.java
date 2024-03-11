@@ -43,7 +43,7 @@ public class Game {
                 currentDirection = gameController.getDirection();
                 switch (previousDirection) {
                     case "left":
-                        snakeSegments.add(new SnakeSegment(snakeHead.getX() + 30, snakeHead.getY(), 1, 30));
+                        snakeSegments.add(new SnakeSegment(snakeHead.getX() + snakeHead.getSize(), snakeHead.getY(), 1, 30));
                         break;
                     case "up":
                         snakeSegments.add(new SnakeSegment(snakeHead.getX(), snakeHead.getY() + snakeHead.getSize(), 30, 1));
