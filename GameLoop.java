@@ -1,26 +1,13 @@
-// GameLoop.java
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import javax.swing.Timer;
 public class GameLoop implements Runnable {
-    private static final int UPDATE_COUNT = 30; // Schritte innterhalb eines vollen Intervalls
-    private static final int UPDATE_PERIOD_MS = 200; // Gesamt dauer eines vollen Intervall
-    private static final int UPDATE_INTERVAL_MS = UPDATE_PERIOD_MS / UPDATE_COUNT; // Schrittdauer in Millisekunden
+    private boolean running;
     private Thread animator;
-    private volatile boolean running = false;
-    private final GameBoard gameBoard;
-    private GameController gameController;
     private long lastUpdateTime;
-    private String direction = "";
-    private int updateCounter = 0;
-    public GameLoop(GameBoard gameBoard) {
-        this.gameBoard = gameBoard;
-        this.gameController = new GameController();
-        this.gameController.setGameBoard(gameBoard);
-        this.gameBoard.addKeyListener(gameController);
-        this.gameBoard.setFocusable(true);
-        this.gameBoard.requestFocusInWindow();
+    private static final int UPDATE_COUNT = 30; // Schritte innterhalb eines vollen Intervalls
+    private static final int UPDATE_PERIOD_MS = 200; 
+    private static final int UPDATE_INTERVAL_MS = UPDATE_PERIOD_MS / UPDATE_COUNT; // Schrittdauer in Millisekunden
+    private static Game game;
+    public GameLoop(Game gameInstance) {
+        this.game = gameInstance;
     }
 
     public void startGame() {
@@ -44,15 +31,9 @@ public class GameLoop implements Runnable {
             long elapsedTime = currentTime - lastUpdateTime;
 
             if (elapsedTime >= UPDATE_INTERVAL_MS) {
-                updateCounter++;
-                gameBoard.gameUpdate();
+                game.update();
                 
                 lastUpdateTime = currentTime - (elapsedTime % UPDATE_INTERVAL_MS); // tatsächliche Schrittdauer - vorgabe Schrittdauer
-
-                if (updateCounter == UPDATE_COUNT) { // >=
-                    gameBoard.setDirection(gameController.getDirection());
-                    updateCounter = 0;
-                }
             }
 
             // Kurze Pause, um CPU-Auslastung zu reduzieren
@@ -64,6 +45,4 @@ public class GameLoop implements Runnable {
         }
         System.exit(0);
     }
-
-    
 }

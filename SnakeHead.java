@@ -4,10 +4,10 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class SnakeHead {
-    public static final int BOX_SIZE = 30;
+    public static final int headSize = 30;
     private int x;
     private int y;
-    private GameBoard gameBoard;
+    private boolean reachedBounds = false;
 
     public SnakeHead(int startX, int startY) {
         this.y = startY;
@@ -15,18 +15,12 @@ public class SnakeHead {
     }
 
     public void move( int toX, int toY) {
-        if (x + toX >= 0  && y + toY >= 0 && x + toX <= 900 && y + toY <= 900)  {
+        if (x >= 0  && x <= 900 && y >= 0 && y <= 900)  {
             x += toX;
             y += toY;
         } else {
-            Random random = new Random();
-            int spawnX = random.nextInt(30) * 30;
-            int spawnY = random.nextInt(30) * 30;
-            x = spawnX;
-            y = spawnY;
-            gameBoard.setGameOver();            
+            reachedBounds= true;
         }
-    
     }
 
     public int getX() {
@@ -37,7 +31,15 @@ public class SnakeHead {
         return y;
     }
     
-    public void setGameBoard(GameBoard gBoard) {
-        this.gameBoard = gBoard;
+    public int getSize() {
+        return headSize;
+    }
+    
+    public boolean hasReachedBounds() {
+        if (reachedBounds) {
+            reachedBounds = false;
+            return true;
+        } 
+        return false;
     }
 }

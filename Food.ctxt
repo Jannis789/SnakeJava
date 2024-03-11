@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Food
+comment1.params=startX\ startY
+comment1.target=Food(int,\ int)
+comment2.params=
+comment2.target=int\ getX()
+comment3.params=
+comment3.target=int\ getY()
+comment4.params=
+comment4.target=int\ getSize()
+numComments=5

@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
 public class SnakeSegment {
     private int x;
     private int y;
@@ -21,7 +21,7 @@ public class SnakeSegment {
     public int getY() {
         return y;
     }
-    
+
     public int getWidth() {
         return width;
     }

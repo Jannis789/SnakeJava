@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=GameLoop
-comment1.params=gameBoard
-comment1.target=GameLoop(GameBoard)
+comment1.params=gameInstance
+comment1.target=GameLoop(Game)
 comment2.params=
 comment2.target=void\ startGame()
 comment3.params=
