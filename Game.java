@@ -19,11 +19,11 @@ public class Game {
     private int previousX;
     private int previousY;
     private ArrayList<SnakeSegment> snakeSegments = new ArrayList<>();
-    private ArrayList<SnakeSegment> hSnakeSegments = new ArrayList<>();
     private int snakeLength = 30;
     private GameController gameController;
     private String previousDirection = "";
     private Food food;
+    private int score = 0;
     public Game(GameBoard gameBoardInstance) {
         this.gameBoard = gameBoardInstance;
         this.gameLoop = new GameLoop(this);
@@ -87,6 +87,10 @@ public class Game {
             }
         }
 
+        if (snakeLength >= snakeSegments.size() && snakeSegments.size() != score && score < snakeSegments.size()) {
+            score = snakeSegments.size();
+            System.out.println("Length: " + (snakeSegments.size()+30));
+        }
         revalidateSnakeLength();
         gameRender();
         gameBoard.repaint();
@@ -100,12 +104,15 @@ public class Game {
             }
         }
         Graphics dbg = dbImage.getGraphics();
+        if (snakeHead == null) {
+            dbg.setColor(Color.BLACK);
+            dbg.fillRect(0, 0, WIDTH, HEIGHT);
+        }
         removeSnakeSegment(dbg);
         createSnakeHead(dbg);
         createFood(dbg);
         if (isSnakeHeadTouchingSnakeSegment() || snakeHead.hasReachedBounds()) {
             restart(dbg);
-
         }
         dbg.dispose(); // Wichtig, um Ressourcen freizugeben und Lecks zu vermeiden.
     }
@@ -122,7 +129,7 @@ public class Game {
     }
 
     public void removeSnakeSegment(Graphics dbg) {
-        dbg.setColor(Color.WHITE);
+        dbg.setColor(Color.BLACK);
         while (snakeLength <= snakeSegments.size() && !snakeSegments.isEmpty()) {
             SnakeSegment tailSegment = snakeSegments.remove(0);
             dbg.fillRect(tailSegment.getX(), tailSegment.getY(), tailSegment.getWidth(), tailSegment.getHeight());
@@ -203,8 +210,8 @@ public class Game {
 
         // Überprüfen, ob die Position mit der SnakeHead übereinstimmt
         if (snakeHead != null &&
-        x + width > snakeHeadX && x < snakeHeadX + snakeHeadSize &&
-        y + height > snakeHeadY && y < snakeHeadY + snakeHeadSize) {
+        x + width >= snakeHeadX && x <= snakeHeadX + snakeHeadSize &&
+        y + height >= snakeHeadY && y <= snakeHeadY + snakeHeadSize) {
             return true;
         }
 
@@ -215,8 +222,8 @@ public class Game {
             int segmentWidth = segment.getWidth();
             int segmentHeight = segment.getHeight();
 
-            if (x + width > segmentX && x < segmentX + segmentWidth &&
-            y + height > segmentY && y < segmentY + segmentHeight) {
+            if (x + width >= segmentX && x <= segmentX + segmentWidth &&
+            y + height >= segmentY && y <= segmentY + segmentHeight) {
                 return true;
             }
         }
@@ -237,8 +244,7 @@ public class Game {
         currentDirection = "";
         previousDirection = "";
         gameController.clearDirection();
-        dbg.setColor(Color.WHITE);
-        dbg.fillRect(0, 0, WIDTH, HEIGHT);
+        score = 0;
 
         snakeHead = null;
         food = null;

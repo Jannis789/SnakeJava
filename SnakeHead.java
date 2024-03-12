@@ -15,7 +15,9 @@ public class SnakeHead {
     }
 
     public void move( int toX, int toY) {
-        if (x >= 0  && x <= 900 && y >= 0 && y <= 900)  {
+        int dx = toX == 1 ? 30 : 0;
+        int dy = toY == 1 ? 30 : 0;
+        if (x >= 0  && x + dx <= 900 && y >= 0 && y + dy <= 900)  {
             x += toX;
             y += toY;
         } else {

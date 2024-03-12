@@ -7,7 +7,7 @@ public class GameWindow {
     public static void createAndShowGUI() {
         JFrame frame = new JFrame("Snake in Java");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(900, 900));
+        frame.setPreferredSize(new Dimension(950, 950));
         
         frame.pack();
         frame.setLocationRelativeTo(null);
